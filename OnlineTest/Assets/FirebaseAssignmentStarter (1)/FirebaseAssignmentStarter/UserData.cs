@@ -20,7 +20,7 @@ public class UserData
     public UserData(string nickName)
     {
         NickName = nickName;
-        Coin = 1000;
+        Coin = 3000;
         Score = 0;
 
         Dictionary<string, bool> unitList = new Dictionary<string, bool>();

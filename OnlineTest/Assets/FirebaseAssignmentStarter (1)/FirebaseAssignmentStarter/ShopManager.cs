@@ -22,6 +22,9 @@ public class ShopManager : MonoBehaviour
     int currentCoin;
     Dictionary<string, int> inventory = new Dictionary<string, int>();
 
+    // 1번 심화과제 
+    Dictionary<string, bool> unitList = new Dictionary<string, bool>();
+
     void Start()
     {
         database = FirebaseDatabase.GetInstance(databaseUrl);
@@ -63,10 +66,13 @@ public class ShopManager : MonoBehaviour
                 string inventoryJson = snapshot.Child("Inventory").Value.ToString();
                 inventory = JsonConvert.DeserializeObject<Dictionary<string, int>>(inventoryJson);
 
+                string unitListJson = snapshot.Child("UnitList").Value.ToString();
+                unitList = JsonConvert.DeserializeObject<Dictionary<string, bool>>(unitListJson);
+
                 dispatcher.Enqueue(() =>
                 {
                     RefreshUI();
-                    //MessageText.text = "유저_정보를 불러오는데 성공했습니다. ";
+                    //MessageText.text = "유저_정보를 불러오는데 성공했습니다. "; // 이것도 굳이  필요 없어짐
                     FindObjectOfType<InventoryManager>().LoadInventory();
                 });
             });
@@ -77,7 +83,7 @@ public class ShopManager : MonoBehaviour
         CoinText.text = "Coin : " + currentCoin;
     }
 
-    public void OnClickBuyMop()
+    public void OnClickBuyMop() // 우리게임 아이템 3개로 
     {
         BuyItem("Mop", 100);
     }
@@ -96,7 +102,7 @@ public class ShopManager : MonoBehaviour
     {
         if (currentCoin < price)
         {
-            MessageText.text = "돈이 부족합니다";
+            MessageText.text = "돈이 부족합니다요";
             return;
         }
 
@@ -144,4 +150,67 @@ public class ShopManager : MonoBehaviour
                 });
             });
     }
+    
+    public void OnClickBuyUnit2() // 2부터 4까지 1은 이미 있어
+    {
+        BuyUnit("Unit2", 200);  
+    }
+
+    public void OnClickBuyUnit3()
+    {
+        BuyUnit("Unit3", 300);  
+    }
+    public void OnClickBuyUnit4()
+    {
+        BuyUnit("Unit4", 400); 
+    }
+
+    void BuyUnit(string unitName, int price)
+    {
+        if (unitList.ContainsKey(unitName) && unitList[unitName] == true)
+        {
+            MessageText.text = "이미 보유한 유닛입니다.";
+            return;
+        }
+        if (currentCoin < price)
+        {
+            MessageText.text = "유닛을 구매하기엔 돈이 부족합니다.";
+            return;
+        }
+        currentCoin -= price;
+        unitList[unitName] = true;
+        SaveUnitData(unitName);
+    }
+
+    void SaveUnitData(string boughtUnitName)
+    {
+        string unitListJson = JsonConvert.SerializeObject(unitList);
+
+        Dictionary<string, object> updateData = new Dictionary<string, object>();
+        updateData["Coin"] = currentCoin;
+        updateData["UnitList"] = unitListJson;
+
+        reference
+            .Child("UserInfo")
+            .Child(userKey)
+            .UpdateChildrenAsync(updateData)
+            .ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    dispatcher.Enqueue(() =>
+                    {
+                        MessageText.text = "유닛 구매 및 저장 실패";
+                    });
+                    return;
+                }
+
+                dispatcher.Enqueue(() =>
+                {
+                    RefreshUI();
+                    MessageText.text = boughtUnitName + " 유닛을 성공적으로 영입했습니다!";
+                });
+            });
+    }
+
 }

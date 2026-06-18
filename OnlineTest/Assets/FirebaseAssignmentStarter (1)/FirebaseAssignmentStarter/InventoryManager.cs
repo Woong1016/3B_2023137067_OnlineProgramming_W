@@ -36,7 +36,7 @@ public class InventoryManager : MonoBehaviour
             MessageText.text = "로그인 정보가 일치하지 않거나 정보가 없습니다.";
             return;
         }
-        //reference.Child("UserInfo").Child(userKey).KeepSynced(true);
+        //reference.Child("UserInfo").Child(userKey).KeepSynced(true); // 처음에 테스트 해보다가 FireBase에서 coin 실시간으로 값 바꿔봤는데 가격 안바뀌길래 Start 함수에서 다시 불러오게끔 테스트
         LoadInventory();
     }
 
