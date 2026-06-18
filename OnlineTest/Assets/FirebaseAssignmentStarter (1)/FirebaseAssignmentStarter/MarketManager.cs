@@ -19,6 +19,7 @@ public class MarketManager : MonoBehaviour
 
     string userKey;
 
+    
     void Start()
     {
         database = FirebaseDatabase.GetInstance(databaseUrl);

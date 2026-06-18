@@ -17,13 +17,15 @@ public class UserRegister : MonoBehaviour
     [SerializeField] InputField NickNameInput;
     [SerializeField] Text CheckText;
 
-   //[Header("Scene")]
-   //[SerializeField] string NextSceneName = "MainScene";
-   //[SerializeField] bool LoadNextSceneAfterRegister = false;
+    //[Header("Scene")]
+    //[SerializeField] string NextSceneName = "MainScene";
+    //[SerializeField] bool LoadNextSceneAfterRegister = false;
 
+     
     bool isProcessing = false;
     void Start()
     {
+
         database = FirebaseDatabase.GetInstance(databaseUrl);
         reference = database.RootReference;
         dispatcher = UnityMainThreadDispatcher.Instance();

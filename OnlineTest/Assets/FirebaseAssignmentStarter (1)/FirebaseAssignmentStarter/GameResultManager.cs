@@ -18,6 +18,7 @@ public class GameResultManager : MonoBehaviour
 
     string userKey;
 
+     
     void Start()
     {
         database = FirebaseDatabase.GetInstance(databaseUrl);

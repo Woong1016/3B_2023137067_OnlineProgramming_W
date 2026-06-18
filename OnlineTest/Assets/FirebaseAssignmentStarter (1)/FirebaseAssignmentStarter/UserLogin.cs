@@ -20,9 +20,11 @@ public class UserLogin : MonoBehaviour
     [Header("Scene")]
     [SerializeField] string NextSceneName = "MainScene";
     [SerializeField] bool LoadNextSceneAfterLogin = false;
+     
 
     void Start()
     {
+
         database = FirebaseDatabase.GetInstance(databaseUrl);
         reference = database.RootReference;
         dispatcher = UnityMainThreadDispatcher.Instance();

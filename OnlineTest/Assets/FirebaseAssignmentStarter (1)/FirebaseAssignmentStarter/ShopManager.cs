@@ -25,6 +25,8 @@ public class ShopManager : MonoBehaviour
     // 1번 심화과제 
     Dictionary<string, bool> unitList = new Dictionary<string, bool>();
 
+     
+
     void Start()
     {
         database = FirebaseDatabase.GetInstance(databaseUrl);

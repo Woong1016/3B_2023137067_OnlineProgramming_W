@@ -23,6 +23,9 @@ public class InventoryManager : MonoBehaviour
     string userKey;
     Dictionary<string, int> inventory = new Dictionary<string, int>();
 
+
+     
+
     void Start()
     {
         database = FirebaseDatabase.GetInstance(databaseUrl);

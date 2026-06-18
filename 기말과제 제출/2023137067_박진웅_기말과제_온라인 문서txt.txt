@@ -1,0 +1,55 @@
+2023137067_박진웅
+
+1. 구현한 기능 목록
+
+기본 과제 모두 완료 : 
+
+회원가입 , 로그인 ,코인 불러오기, 아이템 구매,인벤토리 표시 및 사용,
+Firebase 데이터 연동
+                        
+심화과제 1. : 완료
+심화과제 2. : 완료
+심화과제 3. : 완료
+
+2. 본인이 만든 아이템 3개 이상 설명
+
+청소 컨셉에 맞추어 기존 
+Potion, Bomb, Ticket을 
+Mop, Gun, Spanner로 변경하여 구현함.
+
+
+3. 아이템 가격표  
+
+ Mop: 100 CoinGun: 200 CoinSpanner: 300 Coin
+
+
+4. Firebase 데이터 구조 설명   
+최상단에 UserInfo 노드가 있고, 그 아래에 자동 생성된 유저 고유키가 폴더처럼 존재함.
+고유키 하위 항목으로 Coin (int), NickName (string), Score (int), Inventory (string, JSON 형태),
+ UnitList (string, JSON 형태)가 저장됨.
+
+(심화) Market 노드를 추가하여 판매자 키, 아이템 이름, 가격을 등록함.
+
+5. PlayerPrefs에 저장한 값 설명   
+
+자동 로그인 및 본인 식별을 위해 UserKey (Firebase에서 발급한 고유키)와 UserNickName (유저가 입력한 닉네임)을 저장함.
+
+
+6. Inventory JSON 처리 방식 설명   
+
+Unity의 Dictionary<string, int> 구조를 바로 Firebase에 올리기 어렵기 때문에, 
+Newtonsoft.Json의 JsonConvert.SerializeObject()를 사용해 JSON 문자열(string)로 변환하여 저장함.
+불러올 때는 JsonConvert.DeserializeObject()를 통해 다시 Dictionary 구조로 복원하여 UI에 반영함
+
+
+7. 실행 중 발생한 문제와 해결 방법   
+
+문제: 경매장 기능을 테스트하기 위해 한 PC에서 빌드 창을 2개 띄웠을 때, 
+거래가 일어나는 순간 한쪽 클라이언트가 무조건 튕기며 강제 종료되는 현상이 발생함.
+
+해결 방법: 해결은 되었지만 문제점이 명확하진 않습니다. 단순 제 컴퓨터 문제인 것 같기도 합니다.
+
+1. 제 컴퓨터에 최근 드라이버 관련 문제가 생겨서 드라이버를 교체하는 경우가 생겼는데 거기에서 문제가 생긴게 아닐까 추측해봅니다..
+
+판단한 이유 : 노트북으로 빌드파일을 띄워서 확인해보니 강제종료가 일어나지 않았습니다. 제 컴퓨터에서는 경매장 자체를 클릭하면 
+강제종료가 되었습니다.
