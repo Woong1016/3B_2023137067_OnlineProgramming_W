@@ -39,6 +39,7 @@ public class ShopManager : MonoBehaviour
             return;
         }
         //reference.Child("UserInfo").Child(userKey).KeepSynced(true);
+        reference.Child("UserInfo").Child(userKey).KeepSynced(false);
         LoadUserData();
     }
 

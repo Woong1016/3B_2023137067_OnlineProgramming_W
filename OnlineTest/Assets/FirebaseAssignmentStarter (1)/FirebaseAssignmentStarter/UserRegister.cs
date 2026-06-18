@@ -27,7 +27,9 @@ public class UserRegister : MonoBehaviour
         database = FirebaseDatabase.GetInstance(databaseUrl);
         reference = database.RootReference;
         dispatcher = UnityMainThreadDispatcher.Instance();
-        reference.Child("UserInfo").KeepSynced(true);
+        //reference.Child("UserInfo").KeepSynced(true);
+        reference.Child("UserInfo").KeepSynced(false);
+
     }
 
     // 회원가입 버튼에 연결
